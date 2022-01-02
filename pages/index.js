@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div className="container">
       <Head>
-        <title>Next.js Blog App</title>
+        <title>BlogX</title>
         <link rel="icon" href="/nextjs.ico" />
       </Head>
 
