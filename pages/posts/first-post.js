@@ -7,6 +7,7 @@ export default function FirstPost() {
   return (
     <Layout>
       <Head>
+        <link rel="icon" href="/nextjs.ico" />
         <title>BlogX | First Post</title>
       </Head>
       {/* <Script
