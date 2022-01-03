@@ -1,10 +1,25 @@
 import Head from "next/head";
 import Link from "next/link";
 import Layout, { siteTitle } from "../components/layout";
-import { getSortedPostsData } from "../lib/posts";
+// import { getSortedPostsData } from "../lib/posts";
 import utilStyles from "../styles/utils.module.css";
 
-function Home({ allPostsData }) {
+export async function getStaticProps() {
+  // const allPostsData = getSortedPostsData();
+  // return {
+  //   props: {
+  //     allPostsData,
+  //   },
+  // };
+  const res = await fetch("https://jsonplaceholder.typicode.com/users");
+  const data = await res.json();
+
+  return {
+    props: { users: data },
+  };
+}
+
+function Home({ users }) {
   return (
     <Layout home>
       <Head>
@@ -18,43 +33,31 @@ function Home({ allPostsData }) {
           <a href="https://nextjs.org/learn">our Next.js tutorial</a>.)
         </p>
         <br />
-        <h1>Links</h1>
+        <h2 className={utilStyles.headingLg}>Links</h2>
         <Link href="/about">
           <a>About Page</a>
         </Link>
         <br />
       </section>
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
-        <h2 className={utilStyles.headingLg}>Blog</h2>
+        <h2 className={utilStyles.headingLg}>Users</h2>
         <ul className={utilStyles.list}>
-          {allPostsData.map(({ id, date, title }) => (
-            <li className={utilStyles.listItem} key={id}>
-              {title}
+          {users.map(({ id, name }) => (
+            <div key={id}>
+              <Link
+                href={`/users/${id}`}
+                className={utilStyles.listItem}
+                // key={id}
+              >
+                {name}
+              </Link>
               <br />
-              {id}
-              <br />
-              {date}
-            </li>
+            </div>
           ))}
         </ul>
       </section>
     </Layout>
   );
-}
-
-export async function getStaticProps() {
-  const allPostsData = getSortedPostsData();
-  return {
-    props: {
-      allPostsData,
-    },
-  };
-  // const res = await fetch("https://jsonplaceholder.typicode.com/posts");
-  // const data = await res.json();
-
-  // return {
-  //   props: { allPostsData: data },
-  // };
 }
 
 export default Home;
