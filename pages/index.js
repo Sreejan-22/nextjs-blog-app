@@ -19,10 +19,6 @@ function Home({ allPostsData }) {
         </p>
         <br />
         <h1>Links</h1>
-        <Link href="/posts/first-post">
-          <a>First Post</a>
-        </Link>
-        &nbsp;&nbsp;
         <Link href="/about">
           <a>About Page</a>
         </Link>
